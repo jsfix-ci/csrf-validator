@@ -1,6 +1,6 @@
 {
   "name": "csrf-validator",
-  "version": "1.0.0",
+  "version": "1.0.4",
   "description": "A CSRF Validator for nodejs apps",
   "main": "index.js",
   "types": "index.d.ts",
@@ -14,6 +14,15 @@
   "keywords": [
     "csrf",
     "security",
+    "cross",
+    "site",
+    "reference",
+    "forgery",
+    "next",
+    "request",
+    "expressjs",
+    "node",
+    "nodejs",
     "typescript",
     "library"
   ],
@@ -40,5 +49,6 @@
     "express": "^4.17.1",
     "mocha": "^9.1.1",
     "supertest": "^6.1.6"
-  }
+  },
+  "repository": "ohawks-js/csrf-validator"
 }
