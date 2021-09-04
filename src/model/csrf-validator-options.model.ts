@@ -1,10 +1,11 @@
 export class CSRFValidatorOptions {
     constructor(tokenSecretKey: string, ignoredMethods: string[], ignoredRoutes: string[], entryPointRoutes: string[],
-                cookieSecretKey?: string, cookieSessionKeys?: string[]) {
+                cookieKey?: string, cookieSecretKey?: string, cookieSessionKeys?: string[]) {
         this.tokenSecretKey = tokenSecretKey;
         this.ignoredMethods = ignoredMethods;
         this.ignoredRoutes = ignoredRoutes;
         this.entryPointRoutes = entryPointRoutes;
+        this.cookieKey = cookieKey;
         this.cookieSecretKey = cookieSecretKey;
         this.cookieSessionKeys = cookieSessionKeys;
     }
@@ -28,6 +29,11 @@ export class CSRFValidatorOptions {
      * This is the entry point rotes, which means the csrf tokens will set to any route inside this array even if it is ignored
      */
     entryPointRoutes: string[];
+
+    /**
+     * This one is optional, if you want a custom cookie name, you can give that field name here
+     */
+    cookieKey?: string;
 
     /**
      * This is a secret key for cookies

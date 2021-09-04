@@ -44,7 +44,7 @@ export class CSRFValidator {
             throw Error(this.CSRF_CONFIGURATION_MISSING.TOKEN_SECRET_KEY);
         }
         const csrfOptions: CSRFValidatorOptions = this.options;
-        const csrfTokenKey = this.CSRF_TOKEN_KEY;
+        const csrfTokenKey = csrfOptions.cookieKey ?? this.CSRF_TOKEN_KEY;
         const getRequestSecrets = this.getRequestSecrets;
         const getRequestToken = this.getRequestToken;
         const createToken = this.createToken;
