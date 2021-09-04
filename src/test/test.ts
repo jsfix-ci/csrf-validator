@@ -37,7 +37,7 @@ it('should throw error "Cookie session keys missing"', function (done) {
     expect(() => {
         let app = require('express')();
         CSRFValidator.instance(
-            new CSRFValidatorOptions(null, null, null, null, null, cookie_secret_key, cookie_session_keys)
+            new CSRFValidatorOptions(null, null, null, null, null, cookie_secret_key)
         ).configureApp(app);
     }).toThrowError('Cookie session keys missing');
     done();
@@ -79,25 +79,6 @@ it('should get 200 OK, as the /login route is set as ignored route', function (d
     let app = require('express')();
     CSRFValidator.instance(
         new CSRFValidatorOptions(csrf_secret_key, null, ['/login'], null, null, cookie_secret_key, cookie_session_keys)
-    ).configureApp(app);
-    app = createServerApp(app);
-    request(app)
-        .get('/login')
-        .expect(200, done);
-});
-
-it('should get 200 OK, as the /login route is set as ignored route', function (done) {
-    let app = require('express')();
-    CSRFValidator.instance(
-        {
-            tokenSecretKey: 'A secret key for encrypting csrf token',
-            ignoredMethods: [],
-            ignoredRoutes: [],
-            entryPointRoutes: [],
-            cookieKey: 'Optional - Custom csrf cookie key',
-            cookieSecretKey: 'Cookie secret key for cookie-parser',
-            cookieSessionKeys: ['First session key for cookie-session', 'Second session key for cookie-session']
-        }
     ).configureApp(app);
     app = createServerApp(app);
     request(app)

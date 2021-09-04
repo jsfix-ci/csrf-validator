@@ -1,4 +1,4 @@
-import { CSRFValidatorOptions } from "./model/csrf-options.model";
+import { CSRFValidatorOptions } from "./model/csrf-validator-options.model";
 import { Request, Response } from "express";
 export declare class CSRFValidator {
     private options;

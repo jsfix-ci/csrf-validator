@@ -36,11 +36,12 @@ var CSRFValidator = /** @class */ (function () {
     };
     CSRFValidator.prototype.init = function () {
         var _this = this;
+        var _a;
         if (!this.options.tokenSecretKey) {
             throw Error(this.CSRF_CONFIGURATION_MISSING.TOKEN_SECRET_KEY);
         }
         var csrfOptions = this.options;
-        var csrfTokenKey = this.CSRF_TOKEN_KEY;
+        var csrfTokenKey = (_a = csrfOptions.cookieKey) !== null && _a !== void 0 ? _a : this.CSRF_TOKEN_KEY;
         var getRequestSecrets = this.getRequestSecrets;
         var getRequestToken = this.getRequestToken;
         var createToken = this.createToken;
