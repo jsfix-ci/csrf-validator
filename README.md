@@ -9,8 +9,6 @@
 
 A [CSRF](https://en.wikipedia.org/wiki/Cross-site_request_forgery) validator library for Node.js and Nestjs.
 
-For more information on CSRF, please read [cookie-parser](https://www.npmjs.com/package/cookie-parser).
-
 Using this library will let you directly configure CSRF Validator for your app without a [cookie-parser](https://www.npmjs.com/package/cookie-parser) as it is already built in.
 
 You will have an option to manually add cookie parser as well.
