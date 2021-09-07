@@ -1,7 +1,6 @@
 'use strict';
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.CSRFValidator = void 0;
-var bcrypt = require("bcrypt");
 var cookieSession = require("cookie-session");
 var cookieParser = require("cookie-parser");
 var HttpStatus = require("http-status");
@@ -36,7 +35,7 @@ var CSRFValidator = /** @class */ (function () {
     };
     CSRFValidator.prototype.init = function () {
         var _this = this;
-        var _a;
+        var _a, _b;
         if (!this.options.tokenSecretKey) {
             throw Error(this.CSRF_CONFIGURATION_MISSING.TOKEN_SECRET_KEY);
         }
@@ -46,6 +45,7 @@ var CSRFValidator = /** @class */ (function () {
         var getRequestToken = this.getRequestToken;
         var createToken = this.createToken;
         var verifyToken = this.verifyToken;
+        var csrfInvalidError = (_b = this.options.customErrorMessage) !== null && _b !== void 0 ? _b : this.CSRF_INVALID_ERROR;
         return function (request, response, next) {
             var _a, _b, _c;
             var parseUrl = require('parseurl');
@@ -63,7 +63,7 @@ var CSRFValidator = /** @class */ (function () {
                     return next();
                 }
                 else {
-                    return next(createHttpError(HttpStatus.FORBIDDEN, _this.CSRF_INVALID_ERROR));
+                    return next(createHttpError(HttpStatus.FORBIDDEN, csrfInvalidError));
                 }
             }
             if (entryPointRoutes.includes(requestedRoute)) {
@@ -83,6 +83,7 @@ var CSRFValidator = /** @class */ (function () {
         response.cookie(tokenKey, token);
     };
     CSRFValidator.prototype.createToken = function (csrfOptions) {
+        var bcrypt = require('bcryptjs');
         var saltRounds = 10;
         var secretKey = csrfOptions.tokenSecretKey;
         var salt = bcrypt.genSaltSync(saltRounds);
@@ -90,6 +91,7 @@ var CSRFValidator = /** @class */ (function () {
         return hash;
     };
     CSRFValidator.prototype.verifyToken = function (token, csrfOptions) {
+        var bcrypt = require('bcryptjs');
         return bcrypt.compareSync(csrfOptions.tokenSecretKey, token);
     };
     return CSRFValidator;

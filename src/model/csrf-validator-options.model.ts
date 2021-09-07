@@ -1,6 +1,7 @@
 export class CSRFValidatorOptions {
     constructor(tokenSecretKey: string, ignoredMethods: string[], ignoredRoutes: string[], entryPointRoutes: string[],
-                cookieKey?: string, cookieSecretKey?: string, cookieSessionKeys?: string[]) {
+                cookieKey?: string, cookieSecretKey?: string, cookieSessionKeys?: string[],
+                customErrorMessage?: {code: string; message: string;}) {
         this.tokenSecretKey = tokenSecretKey;
         this.ignoredMethods = ignoredMethods;
         this.ignoredRoutes = ignoredRoutes;
@@ -44,4 +45,10 @@ export class CSRFValidatorOptions {
      * This is an array of secret keys for sessions
      */
     cookieSessionKeys?: string[];
+
+
+    /**
+     * This is an optional field, this will contain an object of error code and message
+     */
+    customErrorMessage?: {code: string; message: string;}
 }

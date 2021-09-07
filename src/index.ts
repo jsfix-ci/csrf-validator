@@ -1,5 +1,4 @@
 'use strict';
-import * as bcrypt from 'bcrypt';
 import * as cookieSession from 'cookie-session';
 import * as cookieParser from 'cookie-parser';
 import * as HttpStatus from 'http-status';
@@ -49,6 +48,7 @@ export class CSRFValidator {
         const getRequestToken = this.getRequestToken;
         const createToken = this.createToken;
         const verifyToken = this.verifyToken;
+        const csrfInvalidError = this.options.customErrorMessage ?? this.CSRF_INVALID_ERROR;
         return (request: Request, response: Response, next: any): any => {
             const parseUrl = require('parseurl');
 
@@ -68,7 +68,7 @@ export class CSRFValidator {
                     this.setCSRFToken(response, token, csrfTokenKey);
                     return next();
                 } else {
-                    return next(createHttpError(HttpStatus.FORBIDDEN, this.CSRF_INVALID_ERROR));
+                    return next(createHttpError(HttpStatus.FORBIDDEN, csrfInvalidError));
                 }
             }
 
@@ -93,6 +93,7 @@ export class CSRFValidator {
     }
 
     createToken(csrfOptions: CSRFValidatorOptions): string {
+        const bcrypt = require('bcryptjs');
         const saltRounds = 10;
         const secretKey = csrfOptions.tokenSecretKey;
         const salt = bcrypt.genSaltSync(saltRounds);
@@ -101,6 +102,7 @@ export class CSRFValidator {
     }
 
     verifyToken(token: string, csrfOptions: CSRFValidatorOptions): boolean {
+        const bcrypt = require('bcryptjs');
         return bcrypt.compareSync(csrfOptions.tokenSecretKey, token);
     }
 }
