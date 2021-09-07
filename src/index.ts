@@ -68,7 +68,8 @@ export class CSRFValidator {
                     this.setCSRFToken(response, token, csrfTokenKey);
                     return next();
                 } else {
-                    return next(createHttpError(HttpStatus.FORBIDDEN, csrfInvalidError));
+                    response.status(HttpStatus.FORBIDDEN).send(csrfInvalidError);
+                    return;
                 }
             }
 

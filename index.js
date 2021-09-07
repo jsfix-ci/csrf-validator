@@ -4,7 +4,6 @@ exports.CSRFValidator = void 0;
 var cookieSession = require("cookie-session");
 var cookieParser = require("cookie-parser");
 var HttpStatus = require("http-status");
-var createHttpError = require("http-errors");
 var CSRFValidator = /** @class */ (function () {
     function CSRFValidator(options) {
         this.options = options;
@@ -63,7 +62,9 @@ var CSRFValidator = /** @class */ (function () {
                     return next();
                 }
                 else {
-                    return next(createHttpError(HttpStatus.FORBIDDEN, csrfInvalidError));
+                    console.log('sending respone');
+                    response.status(HttpStatus.FORBIDDEN).send(csrfInvalidError);
+                    return;
                 }
             }
             if (entryPointRoutes.includes(requestedRoute)) {
