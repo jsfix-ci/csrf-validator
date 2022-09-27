@@ -34,7 +34,10 @@ export class CSRFValidator {
             throw Error(this.CSRF_CONFIGURATION_MISSING.COOKIE_SESSION_KEYS);
         }
         app.use(cookieParser(this.options.cookieSecretKey));
-        app.use(cookieSession({keys: this.options.cookieSessionKeys}));
+        app.use(cookieSession({
+            keys: this.options.cookieSessionKeys,
+            name: 'express:sess'
+        }));
         app.use(this.init());
     }
 
